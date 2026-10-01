@@ -11,7 +11,7 @@ const coffeeProducts = [
     calories: "10 kcal",
     recommendation: "Perfecto para acompañar pan dulce, galletas o un desayuno ligero.",
     price: 45.0,
-    image: "../imagenes/cafe1.png",
+    image: "./imagenes/cafe1.png",
     alt: "Café Americano"
   },
   {
@@ -26,7 +26,7 @@ const coffeeProducts = [
     calories: "180 kcal",
     recommendation: "Ideal para acompañar con un croissant, pastel de vainilla o galletas.",
     price: 55.0,
-    image: "../imagenes/cafe2.png",
+    image: "./imagenes/cafe2.png",
     alt: "Café Latte"
   },
   {
@@ -41,7 +41,7 @@ const coffeeProducts = [
     calories: "150 kcal",
     recommendation: "Excelente para iniciar el día acompañado de un muffin o pan artesanal.",
     price: 60.0,
-    image: "../imagenes/cafe3.png",
+    image: "./imagenes/cafe3.png",
     alt: "Cappuccino"
   },
   {
@@ -56,7 +56,7 @@ const coffeeProducts = [
     calories: "290 kcal",
     recommendation: "Ideal para quienes disfrutan bebidas dulces y postres.",
     price: 65.0,
-    image: "../imagenes/cafe4.png",
+    image: "./imagenes/cafe4.png",
     alt: "Café Mocha"
   },
   {
@@ -71,7 +71,7 @@ const coffeeProducts = [
     calories: "5 kcal",
     recommendation: "Perfecto después de los alimentos o para un impulso de energía.",
     price: 50.0,
-    image: "../imagenes/cafe5.png",
+    image: "./imagenes/cafe5.png",
     alt: "Espresso"
   },
   {
@@ -86,7 +86,7 @@ const coffeeProducts = [
     calories: "170 kcal",
     recommendation: "Excelente con pan artesanal o tostadas.",
     price: 58.0,
-    image: "../imagenes/cafe6.png",
+    image: "./imagenes/cafe6.png",
     alt: "Flat White"
   },
   {
@@ -101,7 +101,7 @@ const coffeeProducts = [
     calories: "20 kcal",
     recommendation: "Ideal para amantes del café fuerte y aromático.",
     price: 52.0,
-    image: "../imagenes/cafe7.png",
+    image: "./imagenes/cafe7.png",
     alt: "Macchiato"
   },
   {
@@ -116,7 +116,7 @@ const coffeeProducts = [
     calories: "15 kcal",
     recommendation: "Perfecto para tardes calurosas y días de verano.",
     price: 62.0,
-    image: "../imagenes/cafe8.png",
+    image: "./imagenes/cafe8.png",
     alt: "Cold Brew"
   }
 ];
