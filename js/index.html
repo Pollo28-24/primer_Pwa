@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Coffee PWA | Catálogo de Especialidad</title>
+
+    <!-- Google Fonts: Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/css-styles.css">
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#3D2314">
+
+    <link rel="apple-touch-icon" sizes="72x72" href="../imagenes/iconos/icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="../imagenes/iconos/icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="../imagenes/iconos/icon-128x128.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../imagenes/iconos/icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../imagenes/iconos/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="../imagenes/iconos/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="256x256" href="../imagenes/iconos/icon-384x384.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="../imagenes/iconos/icon-512x512.png">
+</head>
+
+<body>
+    <main>
+        <header class="app-header">
+            <nav>
+                <a href="./index.html" class="brand" aria-label="Coffee PWA Inicio">
+                    <img src="../imagenes/iconos/icon-72x72.png" alt="Coffee PWA Logo" class="brand-logo">
+                    <h1>Coffee PWA</h1>
+                </a>
+                <ul>
+                    <li><a href="./index.html" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <section class="hero-banner">
+                <span class="hero-badge">Granos de Especialidad</span>
+                <h2 class="hero-title">Café artesanal preparado al momento</h2>
+                <p class="hero-subtitle">Descubrí nuestra selección de granos mexicanos y bebidas de especialidad diseñadas para cada momento del día.</p>
+            </section>
+        </header>
+
+        <section class="catalog-section" aria-label="Nuestra selección de cafés">
+            <div class="container" id="coffee-list"></div>
+        </section>
+    </main>
+
+    <script src="./app.js"></script>
+</body>
+</html>
