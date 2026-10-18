@@ -1,5 +1,5 @@
 const CACHE_PREFIX = "coffee-pwa-";
-const CACHE_NAME = `${CACHE_PREFIX}v14`;
+const CACHE_NAME = `${CACHE_PREFIX}v15`;
 const STATIC_DESTINATIONS = new Set([
   "font",
   "image",
@@ -11,6 +11,8 @@ const ASSETS_TO_CACHE = [
   "./index.html",
   "./detalle.html",
   "./js/app.js",
+  "./js/pokemon.service.js",
+  "./js/pokemon.ui.js",
   "./manifest.json",
   "./css/css-styles.css",
   "./imagenes/cafe1.png",

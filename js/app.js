@@ -145,15 +145,29 @@ function renderProducts() {
       </div>
     </article>
   `).join("");
+
+  // Inicializar sección de Pokémon si está disponible en el DOM
+  if (document.getElementById("pokemon-list") && window.PokemonUI) {
+    window.PokemonUI.initHome("pokemon-list");
+  }
 }
 
 function renderProductDetailPage() {
-
   if (!detailPage) return;
 
-  const productIndex = Number(
-    new URLSearchParams(window.location.search).get("product")
-  );
+  const urlParams = new URLSearchParams(window.location.search);
+  const pokemonId = urlParams.get("pokemon");
+
+  // Si la petición corresponde a un Pokémon, delegar al módulo PokemonUI
+  if (pokemonId) {
+    if (window.PokemonUI) {
+      window.PokemonUI.initDetail(pokemonId, "product-detail-page");
+    }
+    return;
+  }
+
+  // Flujo original del catálogo de café (100% intacto)
+  const productIndex = Number(urlParams.get("product"));
 
   const product = coffeeProducts[productIndex];
 
