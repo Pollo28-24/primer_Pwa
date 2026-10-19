@@ -123,7 +123,6 @@ const coffeeProducts = [
 
 const coffeeList = document.getElementById("coffee-list");
 const detailPage = document.getElementById("product-detail-page");
-let deferredInstallPrompt;
 
 function renderProducts() {
   if (!coffeeList) return;
