@@ -23,8 +23,8 @@
   --color-accent-border: #F0D4B8;
 
   --color-text: #2B1B10;
-  --color-text-secondary: #574438;
-  --color-text-muted: #847366;
+  --color-text-secondary: #4A3B32;
+  --color-text-muted: #6C5B4E;
 
   --color-border: #E8DFD8;
   --color-border-light: #F2ECE6;
@@ -285,13 +285,12 @@ li a.active {
   color: var(--color-text-secondary);
   font-size: 0.925rem;
   line-height: 1.5;
-  flex-grow: 1;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .card-info span {
   display: block;
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 800;
   color: var(--color-accent);
   margin-bottom: var(--space-4);
@@ -302,27 +301,33 @@ li a.active {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: var(--touch-target);
-  width: 100%;
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-primary);
-  color: #FFFFFF;
-  border-radius: var(--radius-md);
+  min-height: 42px;
+  width: fit-content;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 8px 22px;
+  background: var(--bg-surface);
+  color: var(--color-primary);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   font-weight: 700;
   letter-spacing: 0.01em;
-  transition: background-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
+  transition: all var(--transition-base);
   cursor: pointer;
 }
 
 .view-more:hover {
-  background: var(--color-primary-hover);
-  box-shadow: 0 4px 12px rgba(61, 35, 20, 0.25);
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(61, 35, 20, 0.15);
 }
 
 .view-more:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
 /* ==========================================================================
@@ -592,8 +597,10 @@ li a.active {
    ========================================================================== */
 
 .section-heading {
-  margin-top: var(--space-8);
+  margin-top: var(--space-12);
   margin-bottom: var(--space-4);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border);
   text-align: left;
 }
 
@@ -657,7 +664,23 @@ li a.active {
   padding: 4px 12px;
 }
 
-/* Tipos de Pokémon */
+/* Tipos en Cards */
+.card-pokemon .card-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+  min-height: 24px;
+}
+
+.card-pokemon .card-types .pokemon-type-badge {
+  font-size: 0.72rem;
+  padding: 2px 9px;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+}
+
+/* Tipos de Pokémon en Vista Detalle */
 .pokemon-types-list {
   display: flex;
   flex-wrap: wrap;

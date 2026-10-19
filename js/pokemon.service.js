@@ -173,7 +173,39 @@
       const url = `${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`;
       const json = await fetchWithTimeout(url);
 
-      const mappedList = (json.results || []).map(mapToCardModel);
+      // Obtener los datos con tipos en paralelo y precachear los detalles
+      const itemPromises = (json.results || []).map(async (rawItem) => {
+        const id = extractIdFromUrl(rawItem.url);
+        if (cache.details.has(id)) {
+          const cached = cache.details.get(id);
+          return {
+            id,
+            name: cached.name,
+            image: cached.image,
+            types: cached.types,
+            detailUrl: `./detalle.html?pokemon=${id}`
+          };
+        }
+
+        try {
+          const detailUrl = `${BASE_URL}/pokemon/${id}`;
+          const rawDetail = await fetchWithTimeout(detailUrl);
+          const detailModel = mapToDetailModel(rawDetail);
+          cache.details.set(id, detailModel);
+          return {
+            id,
+            name: detailModel.name,
+            image: detailModel.image,
+            types: detailModel.types,
+            detailUrl: `./detalle.html?pokemon=${id}`
+          };
+        } catch {
+          // Fallback limpio al modelo básico si falla una consulta individual
+          return mapToCardModel(rawItem);
+        }
+      });
+
+      const mappedList = await Promise.all(itemPromises);
       const result = {
         items: mappedList,
         hasMore: Boolean(json.next),

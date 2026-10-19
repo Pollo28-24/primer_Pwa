@@ -71,7 +71,15 @@
         <div class="card-info">
           <span class="pokemon-badge-id">${formattedId}</span>
           <h2>${pokemon.name}</h2>
-          <p>Ejemplar sincronizado desde la Pokédex oficial.</p>
+          
+          <div class="card-types">
+            ${(pokemon.types || [])
+              .map(
+                (t) =>
+                  `<span class="pokemon-type-badge type-${t.raw}">${t.label}</span>`
+              )
+              .join(" ")}
+          </div>
 
           <a class="view-more" href="${pokemon.detailUrl}" aria-label="Ver detalles de ${pokemon.name}">
             Ver detalles
