@@ -153,6 +153,49 @@
     `;
   }
 
+  // Estado de paginación incremental
+  const PAGE_LIMIT = 20;
+  let currentOffset = 0;
+  let hasMoreItems = true;
+  let isLoadingMore = false;
+
+  /**
+   * Actualiza el contenedor de paginación con el botón o el mensaje de fin de lista.
+   */
+  function updatePaginationUI(hasMore) {
+    let paginationContainer = document.getElementById("pokemon-pagination");
+    if (!paginationContainer) {
+      const catalogSection = document.getElementById("pokemon-catalog");
+      if (catalogSection) {
+        paginationContainer = document.createElement("div");
+        paginationContainer.id = "pokemon-pagination";
+        paginationContainer.className = "load-more-container";
+        catalogSection.appendChild(paginationContainer);
+      } else {
+        return;
+      }
+    }
+
+    if (!hasMore) {
+      paginationContainer.innerHTML = `
+        <p class="all-loaded-text">✨ ¡Has explorado todos los Pokémon disponibles!</p>
+      `;
+      return;
+    }
+
+    paginationContainer.innerHTML = `
+      <button type="button" class="load-more-btn" id="btn-load-more" aria-label="Cargar 20 Pokémon más">
+        <span>Cargar más Pokémon</span>
+        <span class="btn-icon">⚡</span>
+      </button>
+    `;
+
+    const btn = document.getElementById("btn-load-more");
+    if (btn) {
+      btn.addEventListener("click", () => PokemonUI.loadMore());
+    }
+  }
+
   // Objeto público de la capa UI
   const PokemonUI = {
     /**
@@ -162,21 +205,71 @@
       const container = document.getElementById(containerId);
       if (!container) return;
 
+      // Reiniciar estado de paginación
+      currentOffset = 0;
+      hasMoreItems = true;
+      isLoadingMore = false;
+
       // 1. Mostrar estado de carga (Skeletons)
       container.innerHTML = buildSkeletonsHTML(8);
 
       try {
-        // 2. Obtener datos del servicio
-        const pokemonList = await window.PokemonService.getPokemonList(20, 0);
+        // 2. Obtener primera página (offset = 0, limit = 20)
+        const result = await window.PokemonService.getPokemonList(PAGE_LIMIT, 0);
+        hasMoreItems = result.hasMore;
 
-        // 3. Renderizar listado de Cards
-        container.innerHTML = pokemonList.map(buildCardHTML).join("");
+        // 3. Renderizar listado inicial de Cards
+        container.innerHTML = result.items.map(buildCardHTML).join("");
+
+        // 4. Renderizar botón "Cargar más"
+        updatePaginationUI(hasMoreItems);
       } catch (error) {
         console.error("PokemonUI: Error al cargar el catálogo de Pokémon:", error);
         container.innerHTML = buildErrorHTML(
           "No pudimos conectar con los servidores de PokeAPI en este momento.",
           "window.PokemonUI.initHome"
         );
+      }
+    },
+
+    /**
+     * Carga el siguiente lote de Pokémon conservando las cards actuales en el DOM.
+     */
+    async loadMore(containerId = "pokemon-list") {
+      if (isLoadingMore || !hasMoreItems) return;
+
+      const container = document.getElementById(containerId);
+      const btn = document.getElementById("btn-load-more");
+      if (!container || !btn) return;
+
+      isLoadingMore = true;
+      btn.disabled = true;
+      btn.innerHTML = `
+        <span class="spinner-icon">⏳</span>
+        <span>Cargando más Pokémon...</span>
+      `;
+
+      try {
+        const nextOffset = currentOffset + PAGE_LIMIT;
+        const result = await window.PokemonService.getPokemonList(PAGE_LIMIT, nextOffset);
+
+        currentOffset = nextOffset;
+        hasMoreItems = result.hasMore;
+
+        // Inyectar nuevas cards al final del contenedor sin reemplazar las existentes
+        const newCardsHTML = result.items.map(buildCardHTML).join("");
+        container.insertAdjacentHTML("beforeend", newCardsHTML);
+
+        // Actualizar estado del botón
+        updatePaginationUI(hasMoreItems);
+      } catch (error) {
+        console.error("PokemonUI: Error al cargar más Pokémon:", error);
+        btn.disabled = false;
+        btn.innerHTML = `
+          <span>⚠️ Error al cargar. Reintentar</span>
+        `;
+      } finally {
+        isLoadingMore = false;
       }
     },
 

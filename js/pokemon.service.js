@@ -18,7 +18,7 @@
 
   // Cache en memoria RAM para la sesión actual
   const cache = {
-    list: null,
+    list: new Map(), // clave: `${limit}_${offset}` -> { items, hasMore, total }
     details: new Map()
   };
 
@@ -166,16 +166,22 @@
      */
     async getPokemonList(limit = 20, offset = 0) {
       const cacheKey = `${limit}_${offset}`;
-      if (cache.list && cache.list.key === cacheKey) {
-        return cache.list.data;
+      if (cache.list.has(cacheKey)) {
+        return cache.list.get(cacheKey);
       }
 
       const url = `${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`;
       const json = await fetchWithTimeout(url);
 
       const mappedList = (json.results || []).map(mapToCardModel);
-      cache.list = { key: cacheKey, data: mappedList };
-      return mappedList;
+      const result = {
+        items: mappedList,
+        hasMore: Boolean(json.next),
+        total: json.count
+      };
+
+      cache.list.set(cacheKey, result);
+      return result;
     },
 
     /**
@@ -206,7 +212,7 @@
      * Limpia la caché en memoria si fuera necesario.
      */
     clearCache() {
-      cache.list = null;
+      cache.list.clear();
       cache.details.clear();
     }
   };
